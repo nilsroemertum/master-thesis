@@ -2,15 +2,15 @@
 
 
 = Motivation
-Establishing a vendor-neutral, interoperable architecture is pivotal for unlocking enhanced efficiency, collaboration, and patient care.
+Global diagnostic collaboration demands an architecture capable of supporting distributed, vendor-neutral workflows. As laboratories specialize and services decentralize, fast and secure sharing of large-scale imaging data becomes critical for effective clinical decision-making.
 
-*Benefits for Imaging Personnel:*
-A standardized, vendor-independent architecture streamlines workflows for imaging staff by reducing the complexity associated with proprietary formats. This leads to faster image acquisition and processing, minimizing delays and technical hurdles. Such improvements not only enhance productivity but also contribute to a more satisfying work environment.
+Imaging personnel benefit from standardized systems that reduce reliance on proprietary tools and streamline acquisition processes. Medical experts have immediate access to diagnostic scans—regardless of location—to collaborate efficiently and deliver timely insights. Patients, in turn, experience faster diagnoses and treatments, improving outcomes in time-sensitive cases.
 
-*Advantages for Medical Experts and Analysts:*
-Interoperable systems facilitate seamless access to imaging data across various platforms and imaging devices, enabling medical professionals to collaborate effectively and make timely, informed decisions. This integration supports the use of advanced analytical tools and fosters innovation in diagnostic practices.
+Prior research has established strong foundations. @Lebre.2020 introduced a vendor-neutral repository architecture, while @Ghasemifard.2014 and @Liu.2016 built scalable SaaS platforms for medical imaging. @6684428 proposed a web-based viewer for simplified access, and the iMAGE cloud architecture in @ImageCloudArchitecture showcases how cloud infrastructures can enhance regional healthcare imaging services.
 
-*Improvements for Patients:*
-Patients benefit from expedited diagnostic processes and reduced waiting times, leading to quicker treatment initiation. Enhanced data security and privacy measures within interoperable systems also bolster patient trust in digital healthcare solutions.
+#figure(
+  image("../../figures/iMAGE-cloud-architecture.png", width: 60%),
+  caption: [iMAGE cloud architecture. @Liu.2016]
+) <ImageCloudArchitecture>
 
-Implementing such an architecture aligns with the broader goals of modern healthcare systems, promoting cost-effectiveness, scalability, and adaptability. @Lebre.2020 introduced a secure, vendor-neutral imaging architecture that serves as a foundation for this thesis. Additionally, @6684428 proposed a web-based medical image viewer architecture designed to facilitate efficient and accessible visualization of medical images through standard web technologies. Building on their work, this thesis extends the concept to support real-world diagnostic collaboration in medical imaging, with a particular focus on validating the approach in a practical use case scenario.
+Yet, these architectures focus mainly on processing and visualization—not on supporting end-to-end diagnostic workflows like second-opinion cases. To bridge this gap, a new architecture must be developed—one that enables real-time, interoperable, and scalable collaboration across institutions. This thesis takes up that challenge, extending prior concepts into a fully functional framework for distributed medical diagnostics.

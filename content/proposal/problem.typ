@@ -1,20 +1,15 @@
 #import "/utils/todo.typ": TODO
 
 = Problem
-High-resolution medical imaging introduces scientific and technical challenges, particularly around the handling of large, proprietary data formats under strict security and compliance requirements. A typical example is the second-opinion workflow, as illustrated in @medicalImagingProcess. In this process, an attending physician requests a diagnostic clarification—such as a suspected anomaly in a pathology scan. An image is then created by a technician (image creator), which must be shared with an external medical specialist for a second opinion. The result of this assessment influences the final diagnosis and treatment decision. Despite its clinical importance, this process often encounters significant limitations due to inflexible and fragmented technical infrastructure.
+Large-scale medical imaging increasingly supports diagnostic collaboration across institutions and borders. As laboratory networks evolve and specialized medical services become globally distributed, the demand for fast, secure, and interoperable image sharing grows rapidly. However, current imaging infrastructures remain fragmented, vendor-bound, and technically inflexible—creating significant barriers in critical diagnostic workflows.
+
+One common scenario is the second-opinion workflow in digital pathology, as illustrated in @medicalImagingProcess. In this workflow, a clinician seeks a diagnostic consultation from an external expert, often located in a different institution or country. A technician captures high-resolution pathology scans, sometimes exceeding 20–30 GB in size, which then need to be transferred for expert review. Delays in this process can postpone diagnosis and treatment decisions. Laboratory service providers such as Synlab use this workflow to enable global collaboration among pathologists—highlighting the need for robust, cross-institutional data sharing solutions.
 
 #figure(
-  image("../../figures/medical-imaging-process.png"),
-  caption: [Examplary medical imaging process.],
+  image("../../figures/medical-imaging-process.png", width: 80%),
+  caption: [Exemplary medical imaging process.],
 ) <medicalImagingProcess>
 
-*Imaging Personnel Challenges:*
-Technicians and scanner operators work with advanced imaging devices that produce large-scale image data. These are typically stored in proprietary formats and require upload to closed vendor platforms leading to lack of interoperability to other systems. This leads to long processing times, software compatibility issues, and an inability to quickly respond to diagnostic needs. @TorabMiandoab.2023
+Despite its clinical relevance, this workflow exposes multiple problems. Imaging staff work with scanners that produce proprietary image formats, requiring uploads to closed vendor platforms. These transfers are slow and regularly take hours, delaying collaboration. Medical specialists depend on immediate access to diagnostic-quality images, but current tools lack interoperability and flexibility, preventing seamless expert involvement (see also @TorabMiandoab.2023). Patients ultimately experience delayed diagnoses and treatments—an especially serious issue when rapid intervention is needed.
 
-*Medical Experts and Analysts Challenges:*
-Pathology experts and diagnostic professionals depend on timely, high-quality access to imaging data. However, interoperability gaps and restricted platform access delay evaluations and limit collaborative diagnostics. The reliance on vendor-specific viewers or tools restricts the freedom to use more effective or integrated workflows.
-
-*Patients-Centric Challenges:*
-The downstream impact affects patients directly. Extended waiting times for second opinions or definitive diagnoses create stress, delay treatment, and in critical cases may impact medical outcomes. Fast and flexible data access is therefore not just a technical necessity but a clinical imperative.
-
-In summary, the combination of closed ecosystems, complex data formats, and slow transfer channels creates critical bottlenecks for all stakeholders. This illustrates the urgent need for platform-independent, scalable, and secure architectures that enhance medical imaging workflows and support timely decision-making.
+The inability of today’s systems to handle large-scale imaging across heterogeneous platforms limits the potential of distributed diagnostic networks. Existing software does not sufficiently support the business requires emerging from laboratory consolidation and medical service specialization. The result is operational inefficiency, reduced diagnostic quality, and a diminished capacity to benefit from global medical expertise.
