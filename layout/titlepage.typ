@@ -60,7 +60,7 @@
   entries.push(("Start Date: ", startDate.display("[day].[month].[year]")))
   entries.push(("Submission Date: ", submissionDate.display("[day].[month].[year]")))
 
-  v(1cm)
+  v(7mm)
   align(
     center,
     grid(

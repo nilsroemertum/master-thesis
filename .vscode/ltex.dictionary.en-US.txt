@@ -4,3 +4,6 @@ VSCode
 LTeX
 DICOMweb
 iMAGE
+Lebre
+Ghasemifard
+Jodogne
