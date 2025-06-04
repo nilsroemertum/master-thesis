@@ -3,11 +3,15 @@
 
 = Architecture
 #TODO[
-  This chapter follows the System Design Document Template in @bruegge2004object. You describe in this chapter how you map the concepts of the application domain to the solution domain. Some sections are optional, if they do not apply to your problem. Cite @bruegge2004object several times in this chapter.
+  This chapter follows the System Design Document Template in @bruegge:2010:ObjectorientedSoftwareEngineering. You describe in this chapter how you map the concepts of the application domain to the solution domain. Some sections are optional, if they do not apply to your problem. Cite @bruegge:2010:ObjectorientedSoftwareEngineering several times in this chapter.
 ]
 #GOAL[
   - Explicitly state here this chapter is general-purpose and independent of specific cases.
-  - Mention that this design is generic for medical imaging and later will be tested for the specific use case of synlab described in section 4 requirements
+  - But this architecture will be tested for the synlab case also in this section with requirements defined in section 4 requirements
+  - Mapping General Architecture to Synlab's specific pathology workflow.
+  - Detailed implementation description (components, technology stack, DICOMweb specifics).
+  - Integration with PACS/LIS in pathology context.
+  - Specific adjustments and design decisions made for pathology workflow constraints.
 ]
 
 == Overview

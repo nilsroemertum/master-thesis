@@ -1,15 +1,15 @@
 #import "/utils/todo.typ": TODO
 
 = Problem
-Large-scale medical imaging increasingly supports diagnostic collaboration across institutions and borders. As laboratory networks evolve and specialized medical services become globally distributed, the demand for fast, secure, and interoperable image sharing grows rapidly. However, current imaging infrastructures remain fragmented, vendor-bound, and technically inflexible—creating significant barriers in critical diagnostic workflows.
-
-One common scenario is the second-opinion workflow in digital pathology, as illustrated in @medicalImagingProcess. In this workflow, a clinician seeks a diagnostic consultation from an external expert, often located in a different institution or country. A technician captures high-resolution pathology scans, sometimes exceeding 20–30 GB in size, which then need to be transferred for expert review. Delays in this process can postpone diagnosis and treatment decisions. Laboratory service providers such as Synlab use this workflow to enable global collaboration among pathologists—highlighting the need for robust, cross-institutional data sharing solutions.
+Current clinical imaging infrastructures remain fragmented, vendor-bound, and technically inflexible—creating significant barriers in critical diagnostic workflows. One common scenario for Synlab is the second-opinion workflow in digital pathology, which sequence diagram is illustrated in @medicalImagingProcess. The attending physician initiates a clarification request for an anomaly, but the infrastructure delays the response.
 
 #figure(
-  image("../../figures/medical-imaging-process.png", width: 80%),
-  caption: [Exemplary medical imaging process.],
+  image("../../figures/medical-imaging-process.png", width: 90%),
+  caption: [Exemplary medical imaging sequence diagram for the process performed by Synlab to gather second opinions on pathology images.],
 ) <medicalImagingProcess>
 
-Despite its clinical relevance, this workflow exposes multiple problems. Imaging staff work with scanners that produce proprietary image formats, requiring uploads to closed vendor platforms. These transfers are slow and regularly take hours, delaying collaboration. Medical specialists depend on immediate access to diagnostic-quality images, but current tools lack interoperability and flexibility, preventing seamless expert involvement @TorabMiandoab.2023. Patients ultimately experience delayed diagnoses and treatments—an especially serious issue when rapid intervention is needed.
+Image creators work with proprietary scanners that produce high-resolution files, often exceeding 20–30 GB, and must transfer these files via closed, vendor-specific platforms @TorabMiandoab.2023. These uploads are slow and frequently take several hours, leading to delayed availability of critical diagnostic images. This delay reduces the attending physician’s ability to consult external medical specialists promptly, postponing treatment decisions.
+
+The medical specialist requires immediate access to high-quality diagnostic images to provide a second opinion. The slow transfer times and incompatibility between different systems force specialists to wait for images, leading to inefficient collaboration and frustration. This negatively impacts diagnostic accuracy and decision-making speed. Patients experience delayed diagnoses and treatments, especially when rapid intervention is crucial.
 
 The inability of today’s systems to handle large-scale imaging across heterogeneous platforms limits the potential of distributed diagnostic networks. Existing software does not sufficiently support the business requirements emerging from laboratory consolidation and medical service specialization. The result is operational inefficiency, reduced diagnostic quality, and a diminished capacity to benefit from global medical expertise.

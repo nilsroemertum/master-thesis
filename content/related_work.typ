@@ -13,7 +13,7 @@
   - Clearly articulate the research gap this thesis addresses, setting the foundation for the proposed solution.
 ]
 
-== Vendor-Neutral Architectures
+== Vendor Independent Architectures
 #GOAL[
   Might want to mention following work:
   - Orthanc Ecosystem (Jodogne).

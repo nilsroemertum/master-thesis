@@ -1,4 +1,5 @@
 #let GOAL(body, color: green, width: 100%, breakable: true) = {
+  /**
   block(
     width: width,
     radius: 3pt,
@@ -10,4 +11,5 @@
     Points to talk about in this section:
     #body
   ]
+  **/
 }

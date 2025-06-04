@@ -38,17 +38,17 @@ The thesis starts on April 28, 2024, and ends on October 27, 2024. It is structu
 - Supports @implement and @evaluate.
 - Conduct first system tests and stakeholder interviews using test data
 - Identify functional gaps and usability issues, and apply slight adjustments
-- Deliverable: Evaluation-ready prototype
+- Deliverable: Test-ready prototype
 
-*Iteration 7: Evaluation – Testing and Stakeholder Feedback (3 weeks)*
+*Iteration 7: Testing and Stakeholder Feedback (3 weeks)*
 - Supports @evaluate.
-- Validate that the system meets the defined technical requirements (e.g., transfer speed, access latency) through simulated second-opinion scenarios
-- Evaluate system usability and integration based on stakeholder feedback
-- Deliverable: Evaluation report, including system performance and usability
+- Test if the system meets the defined technical requirements (e.g., transfer speed, access latency) through simulated second-opinion scenarios
+- Test system usability and integration based on stakeholder feedback
+- Deliverable: Test report, including system performance and usability
 
-*Iteration 8: Final Evaluation and Wrap-up (3 weeks)*
+*Iteration 8: Final Testing and Wrap-up (3 weeks)*
 - Supports @evaluate.
 - Gather final stakeholder feedback from imaging technicians and medical experts
-- Perform final evaluation of the architecture’s ability to support remote diagnostic collaboration
+- Perform final tests of the architecture’s ability to support remote diagnostic collaboration
 - Analyze feedback, identify areas for improvement, and finalize architecture
-- Deliverable: Final system evaluation and conclusions about the architecture.
+- Deliverable: Final system test report and conclusions about the architecture.

@@ -1,6 +1,6 @@
 #import "/utils/todo.typ": TODO
 
-In preparing this thesis, I used ChatGPT to generate initial drafts and to expand on ideas, offering valuable suggestions and examples throughout the writing process. For translation tasks, I relied on DeepL to ensure accurate and fluent rendering between English and German. Additionally, I used the VSCode extension LTeX+, which integrates LanguageTool (LT) #footnote[https://languagetool.org/], to support grammar and spell checking, enhancing the overall linguistic quality of the text. All outputs from these tools were carefully reviewed and revised to ensure correctness, coherence, and academic integrity.
+In preparing this thesis, I used ChatGPT to generate initial drafts and to expand on ideas, offering valuable suggestions and examples throughout the writing process. For translation tasks, I relied on DeepL to ensure accurate and fluent rendering between English and German. Additionally, I used the VSCode extension LTeX+, which integrates LanguageTool (LT) #footnote[https://languagetool.org/], to support grammar and spell checking, enhancing the overall linguistic quality of the text. I carefully reviewed and revised all outputs from these tools to ensure correctness, coherence, and academic integrity.
 /*
 Categories of AI Usage:
   Grammar and Style Correction

@@ -20,6 +20,11 @@
   - Proprietary Formats and Challenges.
   - UML Component Diagram showing major system components (PACS, LIS, viewer, interfaces).
 ]
+#figure(
+  image("../figures/uml/thesis/medical-imaging-ecosystem-components.png", width: 100%),
+  caption: [Components of the medical imaging ecosystem. TODO more info]
+) <ImageCloudArchitecture>
+
 
 == Medical Imaging Standards
 #GOAL[
