@@ -15,3 +15,13 @@ Vodovnik
 Aghdam
 Bruegge
 Dutoit
+ULP
+IHE
+Mendelson
+FHIR-based
+Iroju
+Mildenberger
+Godinho
+DICOM-compliant
+Dicoogle
+Kawa

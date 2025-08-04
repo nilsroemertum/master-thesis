@@ -54,7 +54,7 @@
     - Dependency on closed, proprietary software environments, restricting collaboration.
 ]
 
-== Requirements
+== Proposed System
 #TODO[
   If you leave out the section “Existing system”, you can rename this section into “Requirements”.
 ]
@@ -81,13 +81,13 @@
     - FRX Notify Stakeholders: Automatically inform involved stakeholders (experts, clinicians) when scans are available or accessed.
 ]
 
-=== Nonfunctional Requirements
+=== Quality Attributes
 #TODO[
-  List and describe all nonfunctional requirements of your system. Also mention requirements that you were not able to realize. Categorize them using the FURPS+ model described in @bruegge:2010:ObjectorientedSoftwareEngineering without the category functionality that was already covered with the functional requirements.
+  List and describe all quality attributes of your system. All your quality attributes should fall into the URPS categories mentioned in @bruegge:2010:ObjectorientedSoftwareEngineering. Also mention requirements that you were not able to realize.
 
-  - NFR1 Category: Short Description. 
-  - NFR2 Category: Short Description. 
-  - NFR3 Category: Short Description.
+  - QA1 Category: Short Description. 
+  - QA2 Category: Short Description. 
+  - QA3 Category: Short Description.
 
 ]
 #GOAL[
@@ -105,6 +105,17 @@
         - NFRX Regulatory Compliance: System must fully adhere to GDPR and HIPAA compliance guidelines.
         - NFRX Secure Data Transmission: All medical data transmitted must be encrypted (TLS).
         - NFRX Auditability: Support detailed logging for auditing purposes (user access logs, data actions).   
+]
+
+=== Constraints
+
+#TODO[
+  List and describe all pseudo requirements of your system. Also mention requirements that you were not able to realize.
+
+  - C1 Category: Short Description. 
+  - C2 Category: Short Description. 
+  - C3 Category: Short Description.
+
 ]
 
 == System Models

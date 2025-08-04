@@ -1,7 +1,7 @@
 #import "/utils/todo.typ": TODO
 #import "/utils/goal.typ": GOAL
 
-= Evaluation
+= Testing
 #TODO[
   If you did an evaluation / case study, describe it here.
 ]
