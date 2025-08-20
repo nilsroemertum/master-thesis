@@ -1,6 +1,6 @@
 #import "/utils/todo.typ": TODO
 
-= Problem
+= Problem <Problem>
 Current clinical imaging infrastructures remain fragmented, vendor-bound, and technically inflexible—creating significant barriers in critical diagnostic workflows. One common scenario for Synlab is the second-opinion workflow in digital pathology, which sequence diagram is illustrated in @medicalImagingProcess. The attending physician initiates a clarification request for an anomaly, but the infrastructure delays the response.
 
 #figure(

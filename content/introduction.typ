@@ -1,7 +1,7 @@
 #import "/utils/todo.typ": TODO
 #import "/utils/goal.typ": GOAL
 
-= Introduction
+= Introduction <Introduction>
 #TODO[
   Introduce the topic of your thesis, e.g. with a little historical overview.
 ]
@@ -15,7 +15,7 @@ As the capabilities of imaging technologies have grown, so has their role in ena
 
 Beyond improving access in remote settings, remote diagnostics enhances cost-effectiveness by reducing unnecessary patient transfers and enabling efficient resource allocation. It allows medical experts to participate in care delivery independent of their physical location, making specialist knowledge globally accessible @stevens:1982:RemoteMedicalDiagnosis. These developments place increasing demands on the digital infrastructure that underpins diagnostic collaboration—demands that current systems often fail to meet.
 
-== Problem
+== Problem <Problem>
 #TODO[
   Describe the problem that you like to address in your thesis to show the importance of your work. Focus on the negative symptoms of the currently available solution.
 ]

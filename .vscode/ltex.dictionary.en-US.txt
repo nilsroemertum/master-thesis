@@ -25,3 +25,4 @@ Godinho
 DICOM-compliant
 Dicoogle
 Kawa
+Brügge

@@ -1,7 +1,7 @@
 #import "/utils/todo.typ": TODO
 #import "/utils/goal.typ": GOAL
 
-= Background
+= Background <Background>
 #TODO[
   Describe each proven technology / concept shortly that is important to understand your thesis. Point out why it is interesting for your thesis. Make sure to incorporate references to important literature here.
 ]
@@ -14,7 +14,7 @@
 ]
 The following chapter introduces essential background topics necessary to understand current developments and challenges in medical imaging. Huang provides a foundational overview of the principles behind PACS and their role in modern imaging workflows @huang:2010:PACSImagingInformatics. Mildenberger et al. outline the significance of established standards in medical imaging, with a particular focus on the DICOM standard @mildenberger:2002:IntroductionDICOMStandard. Mendelson et al. and Iroju et al. contribute critical insights into interoperability challenges and their implications for healthcare information systems @mendelson:2014:ImageSharingEvolving @iroju:2013:InteroperabilityHealthcareBenefits. These sources provide the conceptual basis for the subsequent discussion, which highlights the relevance of each topic for designing a scalable and interoperable architecture in medical imaging.
 
-== Medical Imaging Ecosystem
+== Medical Imaging Ecosystem <MedicalImagingEcosystemSection>
 #GOAL[
   - Proprietary formats issues.
   - Clinical Workflow: PACS and LIS Integration.
