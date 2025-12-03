@@ -13,6 +13,8 @@
   - Integration with PACS/LIS in pathology context.
   - Specific adjustments and design decisions made for pathology workflow constraints.
 ]
+This chapter develops the software architecture on the basis of the requirements elicited and the analysis models introduced in @Requirements. It follows the methodology presented by Brügge and Dutoit, who emphasize deriving architectural decisions systematically from functional requirements, quality attributes, and constraints [BD10]. Guided by this approach, the architecture consolidates the system’s objectives into clear design goals, decomposes the solution into coherent subsystems, and maps these subsystems to the relevant hardware and execution environments. The resulting blueprint establishes the structural and operational foundation for the implementation and ensures that the architecture addresses the technical and workflow-related challenges identified in the requirements analysis.
+
 
 == Overview
 #TODO[
@@ -71,6 +73,11 @@
     - Separation facilitates reuse and independent testing.
 ]
 
+#figure(
+image("../figures/uml/thesis/subsystem-decomposition.png", width:  120%),
+caption: [TODO Description (UML component diagram).]
+) <SubsystemDecomposition>
+
 == Hardware Software Mapping
 #TODO[
   This section describes how the subsystems are mapped onto existing hardware and software components. The description is accompanied by a UML deployment diagram. The existing components are often off-the-shelf components. If the components are distributed on different nodes, the network infrastructure and the protocols are also described.
@@ -89,6 +96,11 @@
     - DICOMweb REST API integration.
     - (if needed) VPN or secure tunneling to existing clinical systems.
 ]
+
+#figure(
+image("../figures/uml/thesis/deployment-diagram.png", width:  90%),
+caption: [TODO Description (UML deployment diagram).]
+) <DeploymentDiagram>
 
 == Persistent Data Management
 #TODO[
@@ -113,27 +125,4 @@
 ]
 #GOAL[
   - Only include if I decide to include Permissions and Roles into scope of thesis
-]
-
-== Global Software Control
-#TODO[
-  Optional section describing the control flow of the system, in particular, whether a monolithic, event-driven control flow or concurrent processes have been selected, how requests are initiated and specific synchronization issues
-]
-#GOAL[
-  - Event-driven architecture: triggered uploads, notifications, retrieval requests
-  - Concurrent processing: multiple uploads/downloads managed concurrently
-  - (Asynchronous handling: background file processing to improve performance.)
-  - Asynchronous and event-driven approach improves responsiveness and user experience.
-]
-
-== Boundry Conditions
-#TODO[
-  Optional section describing the use cases how to start up the separate components of the system, how to shut them down, and what to do if a component or the system fails.
-]
-#GOAL[
-  - Maybe include how to start/stop/recover cloud systems without data loss (I would rather leave it out but let's see if it gets more important)
-    - System Startup: Clear step-by-step startup sequence for cloud services, database, integrations.
-    - System Shutdown: Graceful shutdown ensuring no data loss.
-    - Failure Recovery: Strategies for resumable uploads, automatic recovery of interrupted processes.
-  - Ensuring robust operational procedures improves reliability and reduces downtime
 ]
