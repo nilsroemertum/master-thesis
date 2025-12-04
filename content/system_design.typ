@@ -2,127 +2,85 @@
 #import "/utils/goal.typ": GOAL
 
 = Architecture <Architecture>
-#TODO[
-  This chapter follows the System Design Document Template in @bruegge:2010:ObjectorientedSoftwareEngineering. You describe in this chapter how you map the concepts of the application domain to the solution domain. Some sections are optional, if they do not apply to your problem. Cite @bruegge:2010:ObjectorientedSoftwareEngineering several times in this chapter.
-]
-#GOAL[
-  - Explicitly state here this chapter is general-purpose and independent of specific cases.
-  - But this architecture will be tested for the synlab case also in this section with requirements defined in section 4 requirements
-  - Mapping General Architecture to Synlab's specific pathology workflow.
-  - Detailed implementation description (components, technology stack, DICOMweb specifics).
-  - Integration with PACS/LIS in pathology context.
-  - Specific adjustments and design decisions made for pathology workflow constraints.
-]
 This chapter develops the software architecture on the basis of the requirements elicited and the analysis models introduced in @Requirements. It follows the methodology presented by Brügge and Dutoit, who emphasize deriving architectural decisions systematically from functional requirements, quality attributes, and constraints [BD10]. Guided by this approach, the architecture consolidates the system’s objectives into clear design goals, decomposes the solution into coherent subsystems, and maps these subsystems to the relevant hardware and execution environments. The resulting blueprint establishes the structural and operational foundation for the implementation and ensures that the architecture addresses the technical and workflow-related challenges identified in the requirements analysis.
 
 
 == Overview
-#TODO[
-  Provide a brief overview of the software architecture and references to other chapters (e.g. requirements), references to existing systems, constraints impacting the software architecture..
-]
-#GOAL[
-  - Brief summary of the developed architecture mentioning requirements in chapter 4 (FR, NFR)
-  - Highlight key constraints impacting the architecture (e.g., vendor-neutrality, interoperability, security regulations).
-  - Brief mention of references to existing solutions reviewed in Related Work (Chapter 3) and how the architecture differs/improves.
-]
+The system architecture is divided into two subsystems: the Second Opinion Platform and the cloud-based PACS. This separation addresses the limitations of the existing solution described in @ExistingSystem, which operates in the company's datacenter and cannot scale with increasing data volumes or user demand because its computing resources and network capacity remain fixed and cannot expand horizontally. The cloud-based PACS executes the computationally intensive actions defined in the functional requirements, such as uploading and displaying large pathology scans (see FR1 and FR4 in @FunctionalRequirements), and provides scalable storage and processing capabilities. 
+
+The Second Opinion Platform focuses on managing Second Opinion cases, coordinating the workflow, and converting images into standard formats before delegating data-intensive operations to the cloud subsystem. This architectural division enables horizontal scaling in the cloud and supports key quality attributes such as reliability, performance, and scalability (see QA2-QA4 in @QualityAttributes), while preserving a clear boundary between workflow logic and high-volume image processing.
+
+In addition to the architectural motivations, several constraints shape the design space and must be addressed explicitly (see @Constraints). The healthcare setting restricts any modification of diagnostic hardware such as scanners (C3), which forces the architecture to accommodate proprietary image formats produced by existing equipment. This requirement directly leads to the interface constraints that mandate the use of DICOM and DICOMweb (C1 and C2) to ensure compatibility with scanners and PACS systems from different vendors and to maintain interoperability as a core quality attribute. 
+
+The system must also comply with strict legal requirements related to handling personal health information (C4). When forwarding scans for a Second Opinion, all patient-identifying data must be removed before external access is granted, which places additional responsibility on both the platform and the cloud-based PACS. These constraints define the boundaries within which architectural decisions are taken and ensure that the resulting system remains deployable in real clinical environments.
+
 
 == Design Goals
-#TODO[
-  Derive design goals from your nonfunctional requirements, prioritize them (as they might conflict with each other) and describe the rationale of your prioritization. Any trade-offs between design goals (e.g., build vs. buy, memory space vs. response time), and the rationale behind the specific solution should be described in this section
-]
-#GOAL[
-  - Design goals (generalized for any medical imaging scenario)
-    - DG1 High Performance (Highest Priority)
-      - Fast transfer speeds for large medical files (x mins for 20–30 GB).
-    - DG2 Vendor-Neutral Interoperability (Highest Priority)
-      - Compatibility with existing clinical systems (PACS/LIS) using e.g. DICOM/DICOMweb.
-    - DG3 Scalability
-      - Stable performance during high concurrent usage
-    - DG4 Usability
-      - User-friendly interfaces, minimal training required
-    - (if implemented) DGX Security & Compliance
-      - Full GDPR/HIPAA compliance; secure encrypted transmission/storage
-  - Design Goal Prioritization Rationale
-    - High performance and interoperability are critical for clinical relevance; hence prioritized highest.
-    - Scalability, security, and usability follow closely due to direct impact on clinical acceptance and operational practicality.
-  - Trade-offs
-    - Performance vs. Security: Encryption overhead vs. transfer speed optimized through efficient encryption standards.
-    - Scalability vs. Complexity: Chose modular components despite slight complexity increase for future-proofing.
-    - Build vs. Buy: Decided on cloud solutions vs. custom hardware/software due to flexibility and vendor-neutrality.
-]
+The design goals follow directly from the quality attributes defined in @QualityAttributes and the shortcomings of the existing system identified in @ExistingSystem. Their purpose is to guide architectural decisions toward a system that addresses the core limitations of the current solution while remaining deployable in a real clinical environment. The goals reflect the relative importance of scalability, interoperability, usability, performance, and compliance, acknowledging that some of these aspects conflict with one another. Prioritization is therefore required to determine which properties drive the overall architecture and how trade-offs are handled in the design.
 
-== Subsystem Decomposition
-#TODO[
-  Describe the architecture of your system by decomposing it into subsystems and the services provided by each subsystem. Use UML class diagrams including packages / components for each subsystem.
-]
-#GOAL[
-  - General subsystems independent of Synlab usecase
-    - Image Upload & Transfer Subsystem
-      - File upload, resumable transfers, progress tracking.
-    - Storage Subsystem
-      - Secure cloud object storage, encryption/decryption, metadata indexing.
-    - Interoperability Layer
-      - DICOM/DICOMweb gateway and integration with PACS/LIS.
-    - If implemented
-      - User Management Subsystem
-        - Role-based access control, user authentication, audit logging.
-      - Notification Subsystem
-        - Event-based notifications to stakeholders (emails, system alerts).
-  - Rationale for decomposition
-    - Clearly defined functional separation simplifies maintainability and scalability.
-    - Separation facilitates reuse and independent testing.
-]
+Scalability (QA4) forms the most important design goal. The existing solution cannot move beyond prototype status because it fails to handle growing volumes of large files and increasing user counts. The architecture therefore prioritizes horizontal scaling for storage and compute. This results in the decision to delegate storage and processing of images and supplements a cloud-based PACS, which can scale resources on demand and absorb higher workloads without redesigning the system.
+
+This decision conflicts with the security and compliance requirement (QA5). A cloud-based deployment, especially on a US-based provider such as Google Cloud that we chose for the prototypical implementation, raises concerns about data protection and regulatory compliance in a European healthcare context. The design accepts this trade-off due to the significant scalability and performance benefits of cloud infrastructure, which support the fast upload and rendering targets defined in QA2. The prototype relies on healthcare-specific cloud services and certifications to mitigate risks, while a more comprehensive compliance assessment remains future work (see @FutureWork) and will be discussed in @Conclusion.
+
+Interoperability (QA3) is the second-highest priority. Closed, vendor-specific PACS systems and scanners currently prevent the use of devices from different manufacturers and restrict integration paths. The architecture therefore avoids buying into additional proprietary software and instead adopts an open-source PACS deployed in the cloud together with standard cloud storage. The use of DICOM and DICOMweb as mandatory interfaces operationalizes this design goal and ensures that the system can interact with heterogeneous clinical environments without sacrificing scalability.
+
+Usability (QA1) remain essential but rank behind scalability and interoperability in the prioritization. The Second Opinion workflow must be intuitive and aligned with clinical practice to achieve user acceptance among pathologists and imaging staff. A clean interface and predictable viewer behavior are necessary conditions for adoption, yet they cannot compensate for missing scalability or interoperability. Even a well-designed user interface will not make the system useful if uploads exceed the required time budget or if proprietary formats cannot be processed. The design goals therefore treat usability as enabling properties that must be satisfied within the boundaries set by scalability, interoperability, and compliance.
+
+
+== Subsystem Decomposition <SubDecSection>
+The subsystem decomposition shown in @SubsystemDecomposition reflects the design goals outlined above and organizes the system into new platform components on the left and existing clinical systems on the right. These existing systems form essential boundary conditions because the new architecture must integrate smoothly into the established healthcare environment to achieve acceptance in practice.
 
 #figure(
 image("../figures/uml/thesis/subsystem-decomposition.png", width:  120%),
-caption: [TODO Description (UML component diagram).]
+caption: [The architecture shows the usual mediacl imaging ecosystem on the right with a local LIS to manage the relevant metadata, the image scanner to create the large-scale image and the local PACS to store the images. The newly developed Second Opinion Platform seamlessly connects to the existing components and is divided into the actual platform and the computationally and storage heavy cloud-based PACS part (UML component diagram).]
 ) <SubsystemDecomposition>
 
-== Hardware Software Mapping
-#TODO[
-  This section describes how the subsystems are mapped onto existing hardware and software components. The description is accompanied by a UML deployment diagram. The existing components are often off-the-shelf components. If the components are distributed on different nodes, the network infrastructure and the protocols are also described.
-]
-#GOAL[
-  Usage of UML Deployment Diagram (generic cloud-based approach)
-  - Cloud Infrastructure
-    - Object storage (e.g., AWS S3, Azure Blob)
-    - Secure web application servers, scalable compute resources.
-  - Clinical Infrastructure
-    - PACS and LIS servers (existing systems)
-  - Client Devices
-    - Standardized browsers/web apps for clinicians and imaging technicians
-  - Network & Protocols:
-    - HTTPS/TLS for secure web access.
-    - DICOMweb REST API integration.
-    - (if needed) VPN or secure tunneling to existing clinical systems.
-]
+The *Local LIS* stores all metadata collected during specimen processing, including sensitive patient data and workflow information such as arrival and scanning timestamps. This information must remain within the local clinical network and cannot be exposed to remote experts. *Local Imaging Modalities* like image scanners connect to this LIS environment. They communicate with the case database of the Local LIS to associate each scan with its corresponding diagnostic case and to record identifiers and workflow metadata, ensuring traceability throughout the pathology workflow.
+
+Image creation leads to storage through the archive service of the *Local PACS*. Local pathologists access scans directly from this subsystem on internal workstations. Remote access is not feasible, since images are not anonymized and the PACS is restricted to the internal network. This restriction motivates the introduction of two new subsystems that support the Second Opinion workflow and handle anonymization, format conversion, and cloud-based processing needs.
+
+The *Second Opinion Platform* introduces multiple components with dedicated responsibilities. The web client application component displays all relevant information about Second Opinion cases and enables communication between participants. It relies on the case service exposed by the application server, which manages workflow logic, state transitions, and connections to existing clinical systems. Storage service access to the case and user database ensures persistent management of case state and user information.
+
+The application server uses the case service interface of the local LIS to attach the diagnostic results to the LIS case once the Second Opinion workflow is completed. A transfer service provided by the application server enables integration with the local PACS to push images directly into the Second Opinion Platform when a Second Opinion is needed. These interfaces are shown as dashed lines because they are not implemented in the prototype and remain future work (see @FutureWork). At present, images are uploaded manually through the web client application from local storage, and resulting diagnoses must be transferred back to the LIS through an intermediate step.
+
+The conversion gateway component provides a conversion service that transforms proprietary image formats such as Philips iSyntax and i2Syntax into DICOM and removes patient-identifying metadata. This anonymization step ensures regulatory compliance and prepares the files for storage in the cloud environment. The output becomes the standardized basis for further processing in the *Cloud-based PACS* subsystem.
+
+This subsystem consists of the DICOM file storage and the Dicoogle PACS server. DICOM file storage offers horizontally scalable and geographically replicable object storage for all DICOM images and supplements. The conversion gateway writes anonymized and standardized files to this component, and the Dicoogle PACS server uses the same storage service to index stored images. Dicoogle is an open-source PACS solution heavily used in research, highly extensible, and easily deployable in cloud environments. Its DICOMweb service simplifies remote retrieval of images and supports efficient tile-based viewing for large pathology images (see @HardwareSoftwareMapping for a detailed description).
+
+The DICOM viewer client component consumes the DICOMweb service and embeds the viewing experience directly into the web client application. Slim, the underlying open-source viewer, is customized to support the workflow requirements of remote diagnostics. Its viewer service integrates seamlessly with the web client application and eliminates the fragmented user experience of switching between platforms, which is a limitation of the existing system.
+
+Component types in @SubsystemDecomposition follow a clear color scheme. Existing clinical systems remain untouched. Newly developed components—the Web Client Application, Application Server, Conversion Gateway, and Case and User Database—form the core of the Second Opinion Platform. Cloud services such as the DICOM file storage provide horizontal scaling and managed infrastructure. Open-source components, including Dicoogle PACS server and DICOM viewer client, are adapted to support interoperability and workflow needs.
+
+Scalability remains a central quality attribute. Cloud storage offers horizontal scaling and replication across regions to support increasing data volumes, and the Dicoogle PACS server can scale horizontally through containerized deployments on serverless platforms such as Google Cloud Run. The Second Opinion Platform currently runs on a single server because most computationally intensive actions occur in the cloud; however, the platform can easily be containerized and scaled horizontally in a managed cluster and operated behind an API load balancer if required by future workloads.
+
+In the current prototype, the cloud-based PACS subsystem is deployed on Google Cloud, where Dicoogle runs in a managed virtual machine and anonymized DICOM files are stored in Cloud Storage. This setup demonstrates that both components can be hosted flexibly, since Dicoogle is containerizable and storage services are available across all major cloud providers. Google Cloud offers an additional advantage through its native Healthcare API, which exposes a fully managed DICOMweb service with automatic load balancing, lifecycle management, and integrated access control—capabilities that simplify operation but would need to be implemented manually when migrating to alternative cloud environments. 
+
+In the current prototype, the cloud-based PACS subsystem is deployed on Google Cloud, where Dicoogle operates in a managed virtual machine and anonymized DICOM files are stored in Cloud Storage (see @HardwareSoftwareMapping). This setup demonstrates the portability of the architecture: Dicoogle is containerizable and can run on virtual machines or managed container platforms across different cloud environments, and object storage is a commodity service available on all major cloud providers. Google Cloud additionally offers a native Healthcare API with a fully managed DICOMweb interface, automatic load balancing, and integrated access control. These capabilities reduce operational complexity but are specific to Google Cloud; other providers do not offer an equivalent managed DICOMweb service.
+
+Migrating the system to another cloud provider requires only a few targeted adaptations. The DICOMweb interface must be provided by the PACS instance in the new environment, ensuring compatibility with the existing workflow. Image storage must be connected to the provider’s object storage service (e.g., AWS S3 or a European cloud equivalent) so that files can be indexed and retrieved correctly. Dicoogle can run either in a virtual machine or as a containerized service, and the remaining components of the Second Opinion Platform can likewise be deployed in a containerized cluster to support horizontal scaling. Together, these adjustments maintain the architecture’s cloud-agnostic design while enabling flexible deployment across different cloud ecosystems.
+
+The modular structure of the architecture supports selective scaling, enabling individual components to grow independently when demand increases. This flexibility also improves extensibility, as additional functionality can be incorporated without restructuring the core platform. For instance, a specialized viewer for radiology or dermatology images could be added alongside the existing DICOM viewer client to support further diagnostic domains. The subsystem decomposition therefore establishes a scalable and adaptable foundation that guides the subsequent hardware software mapping, where components are allocated to devices and execution environments to clarify how the architecture is deployed.
+
+== Hardware Software Mapping <HardwareSoftwareMapping>
+The hardware software mapping builds on the subsystem decomposition and follows the methodological guidance of Brügge and Dutoit @bruegge:2010:ObjectorientedSoftwareEngineering. @DeploymentDiagram illustrates how the prototype is deployed across the involved devices, execution environments, and communication channels. The mapping shows how each subsystem is assigned to concrete hardware and runtime platforms and highlights how the chosen infrastructure supports the design goals and quality attributes introduced earlier.
 
 #figure(
 image("../figures/uml/thesis/deployment-diagram.png", width:  90%),
-caption: [TODO Description (UML deployment diagram).]
+caption: [Deployment diagram of the prototype system. The figure shows how workflow-related services of the Second Opinion Platform run on a Linux server, while the web application executes in the browser runtime of the client PC. Image conversion is handled in a Python environment, and relational data is stored in PostgreSQL. The cloud-based PACS operates on a virtual machine hosting Dicoogle in a Java Virtual Machine, with all image files stored in cloud object storage. Communication between nodes uses REST APIs over HTTPS, except for tile-based image retrieval via DICOMweb over HTTPS  (UML deployment diagram).]
 ) <DeploymentDiagram>
 
-== Persistent Data Management
-#TODO[
-  Optional section that describes how data is saved over the lifetime of the system and which data. Usually this is either done by saving data in structured files or in databases. If this is applicable for the thesis, describe the approach for persisting data here and show a UML class diagram how the entity objects are mapped to persistent storage. It contains a rationale of the selected storage scheme, file system or database, a description of the selected database and database administration issues.
-]
-#GOAL[
-  - Data Persistence Strategy (first draft)
-    - Cloud-based object storage for large imaging files.
-    - Relational database (e.g., PostgreSQL) for metadata, user accounts, logs.
-  - Persistent Entities
-    - Medical images
-    - Patient metadata (if used by system)
-    - (if implemented) User Accounts & Permissions, Audit Logs & Access History
-  - Rationale
-    - Object storage chosen for efficient, scalable large file storage of large scans
-    - Relational database selected for structured data management, querying, auditing
-]
+The Second Opinion Platform Linux Server hosts all workflow-related components except image handling. This server currently runs the web client delivery service, the application service, the conversion service, and the case and user database on a single machine. Although consolidated for the prototype, each component can be deployed independently if higher workloads require separation across nodes or containerized execution. The current deployment therefore represents a minimal setup that remains fully extensible toward distributed operation.
 
-== Access Control
-#TODO[
-  Optional section describing the access control and security issues based on the nonfunctional requirements. It also de- scribes the implementation of the access matrix based on capabilities or access control lists, the selection of authentication mechanisms and the use of en- cryption algorithms.
-]
-#GOAL[
-  - Only include if I decide to include Permissions and Roles into scope of thesis
-]
+The web client delivery service and the application service share a Node.js 18 execution environment, since both are implemented in TypeScript. The delivery service provides the static assets of the Second Opinion app to the client device, while the application service exposes business logic and workflow management via a REST API. React and TypeScript were chosen for the web application and Express.js with TypeScript for the application server to ensure a unified, type-safe development stack across client and server, enabling consistent data models, improved maintainability, and rapid iteration within a modern JavaScript ecosystem.
+
+Once delivered, the web application executes in the web browser JavaScript runtime on the client PC. This browser environment interprets the bundled JavaScript, handles the user interface, and issues authenticated API calls back to the application server. Execution is therefore split between server-side delivery and client-side rendering, with the browser acting as the runtime host for all user-visible functionality.
+
+Conversion of proprietary image formats runs in a Python 3.8 execution environment. The application server invokes this environment when a conversion is required, and a Python process is spawned dynamically to execute the conversion task. Python is chosen because the wsidicomizer library, which enables reliable translation from formats such as Philips iSyntax to DICOM, is available exclusively for Python. This design isolates computationally expensive and format-specific operations into a dedicated execution environment without impacting the responsiveness of the workflow logic hosted in Node.js.
+
+Persistent storage is divided across two environments. Relational metadata, such as case states, user information, and workflow history, is stored in a PostgreSQL execution environment on the Second Opinion Platform Linux server. Image and supplement files, by contrast, are stored entirely in cloud object storage. This storage service provides scalable, durable, and regionally replicable object storage, which aligns with the system's scalability and performance requirements. The separation between relational data and large-file object storage reflects the distinct access patterns and resource demands of the two data categories.
+
+The cloud-based PACS operates on a cloud virtual machine running Linux, where Dicoogle PACS executes inside a Java Virtual Machine (JVM) since it is written in Java. The PACS server indexes all DICOM files stored in cloud object storage and exposes a DICOMweb endpoint for retrieval. The embedded viewer component in the Second Opinion app uses this endpoint to request pyramid-based image tiles, which enables responsive streaming and interactive navigation even for very large images.
+
+Communication between devices relies predominantly on REST APIs transmitted over HTTPS. The client PC interacts with the application service via HTTPS for all workflow actions, and the application service communicates with cloud object storage through authenticated REST calls to upload anonymized DICOM files. Dicoogle PACS uses the same storage interface to retrieve and index files. Image access represents the only deviation from this pattern, as pyramid-based tiles are retrieved through DICOMweb over HTTPS using the protocol exposed by Dicoogle. Interfaces for the cloud-based PACS integration, including storage and retrieval operations, are documented further in @CloudInterfaceSpecification.
+
+This deployment configuration demonstrates how workflow logic, image conversion, metadata storage, and cloud-based imaging services complement one another across distributed hardware nodes. The resulting mapping provides a clear view of how the architecture is realized in practice and prepares the ground for reflecting on performance, scalability, and integration aspects in the summary chapter.

@@ -1,7 +1,3 @@
-First, I'd like to thank coffee for fueling my brain cells and making this thesis possible.
+I would like to express my sincere gratitude to Frank Mang for his excellent guidance throughout this thesis. His support during the prototyping phase, along with his precise and constructive feedback, was invaluable to the development and refinement of this work.
 
-A big shoutout to my advisor for your patience and for not laughing (too hard) at my wild ideas.
-
-To my family, your snack supplies and constant reminders to "just finish it already" were invaluable.
-
-Finally, to my pet, your keyboard sit-ins ensured I took breaks, whether I wanted to or not.
+My appreciation also extends to Synlab for serving as the industry partner for this thesis. Having access to a real-world diagnostic problem and authentic medical imaging data provided an exceptional foundation for designing, implementing, and evaluating the prototype in a realistic setting. I am particularly grateful to Laura Panarelli, whose continuous availability, thoughtful input, and willingness to engage in detailed discussions significantly shaped both the conceptual direction of the thesis and the practical development of the system.

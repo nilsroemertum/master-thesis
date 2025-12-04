@@ -24,7 +24,7 @@ The thesis starts on April 28, 2024, and ends on October 27, 2024. It is structu
 
 *Iteration 4: Implement Prototype – Image Sharing Workflow (4 weeks)*
 - Supports @implement.
-- Implement the end-to-end workflow for second-opinion image sharing
+- Implement the end-to-end workflow for  Second Opinionimage sharing
 - Ensure workflow consistency across roles (imaging staff, remote experts)
 - Deliverable: Integrated image sharing workflow
 
@@ -42,7 +42,7 @@ The thesis starts on April 28, 2024, and ends on October 27, 2024. It is structu
 
 *Iteration 7: Testing and Stakeholder Feedback (3 weeks)*
 - Supports @evaluate.
-- Test if the system meets the defined technical requirements (e.g., transfer speed, access latency) through simulated second-opinion scenarios
+- Test if the system meets the defined technical requirements (e.g., transfer speed, access latency) through simulated Second Opinion scenarios
 - Test system usability and integration based on stakeholder feedback
 - Deliverable: Test report, including system performance and usability
 

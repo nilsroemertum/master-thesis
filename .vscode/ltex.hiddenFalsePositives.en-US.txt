@@ -9,3 +9,4 @@
 {"rule":"POSSESSIVE_APOSTROPHE","sentence":"^\\QChapter 4 presents the requirements analysis, following the structure outlined by Bruegge and Dutoit \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-)[0-9]+\\Q covering both functional and non6functional requirements.\\E$"}
 {"rule":"IS_AND_ARE","sentence":"^\\QThe acquisition gateway supports both push and pull mechanisms for data transfer.\\E$"}
 {"rule":"POSSESSIVE_APOSTROPHE","sentence":"^\\QChapter 5 develops the software architecture of the proposed system by mapping the concepts identified in the requirements analysis to concrete solution structures and runtime environments.\\E$"}
+{"rule":"REP_PASSIVE_VOICE","sentence":"^\\QWhen a case is deleted, its attachments and second opinions lose their meaning and are removed as well.\\E$"}

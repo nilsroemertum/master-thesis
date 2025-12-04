@@ -1,4 +1,5 @@
-Note:
-  1. *paragraph:* What is the motivation of your thesis? Why is it interesting from a scientific point of view? Which main problem do you like to solve?
-  2. *paragraph:* What is the purpose of the document? What is the main content, the main contribution?
-  3. *paragraph:* What is your methodology? How do you proceed?
+The increasing size and complexity of high-resolution medical images, particularly pathology scans, expose major limitations in today’s diagnostic infrastructures. Existing PACS environments struggle with multi-gigabyte files, proprietary formats, and limited interoperability, resulting in slow transmission, fragmented workflows, and insufficient support for cross-institutional Second Opinion processes. Addressing these challenges is scientifically relevant, as it requires scalable architectures, standard-compliant communication mechanisms, and workflow-oriented system design for modern medical imaging.
+
+This thesis develops a vendor-neutral, cloud-based architecture that enables efficient sharing of large pathology images and supports distributed diagnostic collaboration. Its main contribution is the integration of DICOM/DICOMweb-compliant imaging, metadata handling, and workflow management into a unified platform tailored to Second Opinion scenarios. Using Synlab’s real-world use case as motivation, the thesis provides both an architectural blueprint and a functional prototype that improve transfer performance, interoperability, and usability.
+
+Methodologically, the work follows a structured requirements-engineering process, beginning with an analysis of current systems and stakeholder workflows. Based on these insights, a modular architecture is designed and implemented using cloud-native components and web-based imaging technologies. The prototype is examined through performance tests and qualitative stakeholder feedback to assess its practical feasibility and highlight areas for future improvement.

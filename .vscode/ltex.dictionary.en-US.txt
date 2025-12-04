@@ -30,3 +30,5 @@ postconditions
 RemoteExpertProfile
 PathologyScan
 SecondOpinions
+iSyntax
+WADO-RS

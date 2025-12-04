@@ -2,66 +2,46 @@
 #import "/utils/goal.typ": GOAL
 
 = Summary
-#TODO[
-  This chapter includes the status of your thesis, a conclusion and an outlook about future work.
-]
+The work presented in this thesis culminates in a scalable, vendor-neutral architecture and a functional prototype designed to address the performance, interoperability, and workflow shortcomings observed in Synlab’s current Second Opinion processes. Through systematic requirements engineering, architectural design, and iterative validation, the architecture demonstrates that large-scale pathology images can be shared and accessed efficiently in distributed diagnostic settings. Performance measurements and stakeholder feedback confirm the feasibility of the proposed approach while also revealing limitations and open challenges that inform the subsequent assessment of achieved goals and directions for further development.
 
 == Status
-#TODO[
-  Describe honestly the achieved goals (e.g. the well implemented and tested use cases) and the open goals here. if you only have achieved goals, you did something wrong in your analysis.
-]
+The project successfully realizes a scalable cloud-based architecture and a complete remote diagnostic workflow capable of handling large pathology images efficiently and supporting end-to-end Second Opinion collaboration. The implemented prototype demonstrates that the core technical objectives—particularly performance, interoperability, and the integration of workflow components—can be achieved in practice. At the same time, a few goals remain open in the area interoperability and compliance-. These unresolved aspects are outlined in the following subsections, together with their implications for future development.
 
 === Realized Goals
-#TODO[
-  Summarize the achieved goals by repeating the realized requirements or use cases stating how you realized them.
-]
-#GOAL[
-  - Goals to be expected
-    - Successful implementation of a prototype system for sharing large pathology scans
-    - Achieved integration with Synlab’s PACS/LIS (e.g. using DICOMweb)
-    - Fulfilled performance requirement: Transfer times for x GB scans under x minutes in test scenarios
-    - Positive feedback on usability from clinical stakeholders
-    - Demonstrated general architecture feasibility through pathology use case
-    - (if implemented) Implemented secure data handling (encryption at rest and in transit)
-]
+The development process resulted in several core achievements that demonstrate the feasibility and effectiveness of the proposed system. First, a scalable cloud-based architecture for remote diagnostics was designed and implemented, ensuring that large pathology images can be shared and accessed efficiently across distributed environments. Furthermore, the prototype supports a complete end-to-end diagnostic workflow—from scan upload and case creation to remote review and final assessment—thereby validating the workflow-oriented design of the system.
+
+A key accomplishment of this work is the significant performance gain over the existing prototype used at Synlab. The system was evaluated using multi-gigabyte pathology image files, demonstrating substantial improvements in transfer speed and viewing responsiveness. Upload times for images (multiple GB) were reduced from more than one hour to less than 15 minutes under standard network conditions. Likewise, remote viewing performance showed that large-scale pathology scans can be visualized within a few seconds, enabling smooth navigation and diagnostic interaction. Stakeholders confirmed that the new user interface is considerably more intuitive and aligned with their workflow needs, further improving usability and acceptance.
+
+In addition, the work includes the adaptation of the DICOM file format and the DICOMweb protocol to enable vendor-neutral image storage and retrieval within the diagnostic process. These standards form the foundation for interoperable image handling and ensure compatibility with a broad range of imaging tools and viewers.
+Finally, anonymization of medical images was successfully implemented, ensuring that personal identifiers are removed before diagnostic data is shared with external experts. This establishes a crucial compliance baseline for secure and privacy-preserving remote collaboration.
 
 === Open Goals
-#TODO[
-  Summarize the open goals by repeating the open requirements or use cases and explaining why you were not able to achieve them. Important: It might be suspicious, if you do not have open goals. This usually indicates that you did not thoroughly analyze your problems.
-]
-#GOAL[
-  - Expected open goals
-    - Full real-time collaboration features (multi-user simultaneous interaction)
-    - Automated proprietary format conversion for all formats was not realized (requires more extensive vendor cooperation and research)
-    - Limited evaluation generalizability as prototype was only tested within Synlab pathology environment
-    - Usability testing with larger and more diverse user groups / more scanners remains open
-]
+Despite the achieved milestones, several objectives remain open and require additional work to reach full system maturity.
+Most notably, the current prototype does not yet provide direct integration with local PACS and LIS systems. To operationalize the platform within clinical environments, these systems must be connected via the interfaces outlined in the subsystem decomposition, enabling seamless data exchange and eliminating the need for manual coordination across systems.
 
-== Conclusion
-#TODO[
-  Recap shortly which problem you solved in your thesis and discuss your *contributions* here.
-]
-#GOAL[
-  - Recap of the addressed problem: inefficient and vendor-locked sharing of large pathology scans for second-opinion workflows
-  - Summarized solution: vendor-neutral, scalable cloud architecture integrated with DICOMweb and PACS/LIS
-  - Contributions:
-    - Developed and tested a modular prototype system
-    - Provided empirical evidence of performance and usability improvements
-    - Delivered a generalizable architectural framework applicable beyond pathology
-]
+Furthermore, while image anonymization is implemented, the anonymization of supplementary documents remains unresolved. At present, supporting materials—such as reports or notes—may still contain sensitive patient metadata. A proof of concept was created using a large language model to identify and redact such information in an exemplary PDF, demonstrating the potential of AI-assisted approaches. 
+
+However, developing a robust, production-ready solution requires deeper investigation into document structures, regulatory requirements, and reliable automated redaction techniques. Addressing these open goals is essential to ensure comprehensive interoperability, regulatory compliance, and readiness for deployment in real-world clinical workflows.
+
+== Conclusion <Conclusion>
+This thesis addressed the challenges associated with sharing large-scale pathology images in distributed diagnostic workflows, particularly in the context of Second Opinion consultations at Synlab. Existing solutions suffer from limited scalability, proprietary formats, fragmented workflows, and insufficient interoperability, all of which impede efficient remote collaboration. By analyzing these shortcomings and formalizing the resulting requirements, the work developed a scalable, vendor-neutral architecture designed specifically to support remote diagnostics under realistic clinical constraints.
+
+The primary contributions of this thesis lie in the design and prototypical implementation of an integrated system that combines cloud-native architectural principles with established medical imaging standards. The architecture enables efficient handling of multi-gigabyte pathology scans, supports end-to-end diagnostic workflows, and incorporates DICOM and DICOMweb for standardized image exchange. Furthermore, the system demonstrates effective anonymization of medical images to ensure compliance with privacy requirements and showcases a modular structure that can be extended toward full clinical integration.
+
+Performance testing and stakeholder feedback confirm that the proposed approach significantly improves the feasibility of large-scale remote diagnostics, offering a foundation upon which production-ready solutions can be built. While interoperability with existing PACS and LIS systems and comprehensive document anonymization remain open challenges, the work provides a solid technical and conceptual basis for future advancements in scalable, interoperable medical imaging infrastructures.
 
 
-== Future Work
-#TODO[
-  Tell us the next steps (that you would do if you have more time). Be creative, visionary and open-minded here.
-]
-#GOAL[
-  - Potential future work points
-    - Broaden evaluation to other medical domains (e.g. radiology, cardiology) to test generalizability of the architecture
-    - Implement advanced real-time collaboration features (simultaneous viewing, annotations)
-    - Develop automated and intelligent image format conversion pipelines
-    - Enhance security with advanced features such as anomaly detection (AI) and zero-trust architecture principles
-    - Integrate with AI-powered diagnostic tools for augmented expert collaboration
-    - Implement advanced security measurements and user authentication / permission / roles
-    - Conduct larger scale usability studies across different user groups and institutions
-]
+== Future Work <FutureWork>
+Several aspects of the proposed system require further development before it can be deployed in a production environment. A central next step is the integration of the Second Opinion Platform into Synlab’s existing IT landscape, particularly the local PACS and LIS systems. Establishing these connections through the interfaces outlined in the subsystem decomposition would enable seamless data flow, eliminate redundant manual steps, and fully embed the system within operational diagnostic routines. 
+
+In this context, user management also becomes essential. Incorporating an enterprise-grade authentication and authorization service—such as a Single Sign-On (SSO) solution—would ensure that user identities, roles, and permissions are managed centrally rather than redundantly across systems, improving usability and reducing administrative overhead.
+
+Another important next step is enabling email notifications. While the prototype defines the logic governing when notifications should be triggered and what content they contain, this logic must be connected to a mail server or notification provider to support communication with users in clinical practice. Reliable notification mechanisms are critical for workflows involving external experts, as they reduce delays and improve coordination.
+
+Further work is also needed on anonymization mechanisms, especially concerning supplementary documents. Unlike DICOM images, these files often contain unstructured or semi-structured data that may hold sensitive patient information. Although a proof of concept using a large language model demonstrated the feasibility of detecting and redacting sensitive content within an exemplary PDF, developing a production-ready solution will require a deeper examination of document formats, regulatory requirements, and robust automated redaction strategies.
+
+Compliance remains a key topic for future exploration. Cloud-based solutions provide significant advantages in scalability and performance, as demonstrated in this thesis, yet they raise governance concerns when patient data is processed by vendors based outside the EU. While platforms such as Google Cloud maintain extensive healthcare certifications—including HIPAA—trust and regulatory interpretation ultimately depend on organizational risk assessment and legal context. 
+
+Alternatives include transitioning to European cloud providers, as discussed in the subsystem decomposition (see @SubDecSection), which may offer improved alignment with data sovereignty requirements. Determining the optimal governance model therefore remains an open question that must be evaluated by healthcare organizations before large-scale deployment.
+
+Finally, security requires continued attention, particularly regarding encryption, metadata protection, and secure access control. Beyond encrypting images at rest and in transit, it is essential to safeguard associated metadata, which can reveal sensitive clinical information even when images are anonymized. Future work should therefore examine hardened encryption schemes, fine-grained access policies, audit mechanisms, and potential threats related to metadata leakage. A comprehensive security assessment—potentially including penetration testing and threat modeling—would further strengthen the platform’s readiness for real-world diagnostic environments.

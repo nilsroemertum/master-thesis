@@ -132,25 +132,62 @@
 
   body
 
-  // List of figures.
+  // Dictionary mapping labels to short captions
+  let short-captions = (
+    "MedicalImagingEcosystem": [Components of the medical imaging ecosystem (UML component diagram)],
+    "MedicalImagingStandardsCommunication": [Communication between pathologist and medical imaging infrastructure (UML communication diagram)],
+    "DicooglePathologyPACSArchitecture": [Vendor-neutral PACS architecture for pathology images as proposed by @marquesgodinho:2017:EfficientArchitectureSupport (UML component diagram)],
+    "PathologyAIPlatform": [Digital pathology platform as proposed by @jesus:2023:PersonalizableAIPlatform (UML component diagram)],
+    "RequirementsActivities": [Activities and resulting artifacts in the requirements engineering process (UML activity diagram)],
+    "SynlabExistingSystem": [Architectual components of the existing system (UML component diagram)],
+    "UseCaseDiagram": [Second Opinion Platform use cases (UML use case diagram)],
+    "AOM": [Analysis Object Model of the Second Opinion Platform (UML class diagram)],
+    "StateDiagram": [States of case (UML state diagram)],
+    "UI-Dashboard": [Screenshot of the Seond Opinion Platform dashboard],
+    "UI-Upload": [Screenshot of the upload form for a new case],
+    "UI-CaseDetails": [Screenshot of the case details page],
+    "SubsystemDecomposition": [Subsystem decomposition (UML component diagram)],
+    "DeploymentDiagram": [Deployment diagram of the prototype system (UML deployment diagram],
+  )
+
+  // Customize outline entries to use short captions
+  show outline.entry: it => {
+    // Check if this entry is for a figure
+    if it.element.func() == figure {
+      let elem = it.element
+      let label = elem.label
+      
+      // Get short caption if available
+      let caption = if label != none {
+        let label-str = str(label)
+        // Check if key exists in dictionary keys
+        if label-str in short-captions.keys() {
+          short-captions.at(label-str)
+        } else {
+          elem.caption
+        }
+      } else {
+        elem.caption
+      }
+
+      // Replace the content while keeping the structure
+      link(
+      elem.location(),
+      it.indented([*#it.prefix()*], [*#caption #box(width: 1fr, it.fill) #it.page()*])
+      )
+    }
+  }
+
+  // List of figures
   pagebreak()
   heading(numbering: none)[List of Figures]
   outline(
-    title:"",
-    target: figure.where(kind: image),
-  )
-
-  // List of tables.
-  pagebreak()
-  heading(numbering: none)[List of Tables]
-  outline(
     title: "",
-    target: figure.where(kind: table)
+    target: figure.where(kind: image),
   )
 
   // Appendix.
   pagebreak()
-  heading(numbering: none)[Appendix A: Supplementary Material]
   include("/layout/appendix.typ")
 
   pagebreak()
